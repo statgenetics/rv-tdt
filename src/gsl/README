@@ -1,0 +1,26 @@
+
+** GSL problem **
+src/gsl/specfunc/psi.o: In function `gsl_sf_complex_psi_e':
+psi.c:(.text+0x223f): undefined reference to `gsl_finite'
+psi.c:(.text+0x22d7): undefined reference to `gsl_finite'
+src/gsl/linalg/svd.o: In function `gsl_linalg_SV_decomp':
+svd.c:(.text+0x314): undefined reference to `gsl_isnan'
+svd.c:(.text+0x7f1): undefined reference to `gsl_isnan'
+
+following patch has to be applied to fix it:
+
+# for gsl/specfunc/psi.c
+819c819
+<     if(finite(GSL_REAL(cotzpi)) && finite(GSL_IMAG(cotzpi)))
+---
+>     if(GSL_IS_REAL(GSL_REAL(cotzpi)) && GSL_IS_REAL(GSL_IMAG(cotzpi)))
+
+# for gsl/linalg/svd.c
+122c122
+<         if (fbm1 == 0.0 || isnan (fbm1))
+---
+>         if (fbm1 == 0.0 || gsl_isnan (fbm1))
+137c137
+<             if (fam1 == 0.0 || isnan (fam1))
+---
+>             if (fam1 == 0.0 || gsl_isnan (fam1))

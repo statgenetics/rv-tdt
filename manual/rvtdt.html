@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>RV-TDT: Rare Variant Extensions of the Transmission Disequilibrium Test</title>
+<!-- 2015-03-16 Mon 14:39 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Zong-Xiao He \&amp; Suzanne M. Leal" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="shortcut" href="http://hezx.github.io/favicon.ico" />
+<link href='http://fonts.googleapis.com/css?family=OFL+Sorts+Mill+Goudy+TT:regular,italic' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Radley:400,400italic|400italic,600italic,400,600' rel='stylesheet' type='text/css' / >
+<link rel="profile" href="http://microformats.org/profile/hcard" />
+<link rel="stylesheet" href="http://hezx.github.io/media/css/hezx.css"  type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://hezx.github.io/media/css/print.css" type="text/css" media="print" charset="utf-8" />
+<script data-cfasync="false" src="http://hezx.github.io/media/js/jquery.js" type="text/javascript"></script>
+<script data-cfasync="false" src="http://hezx.github.io/media/js/jquery.timeago.js" type="text/javascript"></script>
+<script data-cfasync="false" src="http://hezx.github.io/media/js/sjl.js" type="text/javascript"></script>
+<script data-cfasync="false" src="http://hezx.github.io/media/js/print.js" type="text/javascript"></script>
+<script data-cfasync="false" src="http://hezx.github.io/media/js/sjl-2.js" type="text/javascript"></script>
+<script src="http://hezx.github.io/media/js/sjl-3.js" type="text/javascript"> </script>
+<div class="wrap">
+<div class="top group">
+<header> <a href="http://hezx.github.io/">Zong-Xiao He</a> </header>
+</div>
+<div class="hr">&nbsp;</div>
+</div>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">RV-TDT: Rare Variant Extensions of the Transmission Disequilibrium Test</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Many population-based rare-variant (RV) association tests, which
+aggregate variants across a region, have been developed to analyze
+sequence data. A drawback of analyzing population-based data is that
+it is difficult to adequately control for population substructure and
+admixture, and spurious associations can occur. For RVs, this problem
+can be substantial, because the spectrum of rare variation can differ
+greatly between populations. A solution is to analyze parent-child
+trio data, by using the transmission disequilibrium test (TDT), which
+is robust to population substructure and admixture. 
+</p>
+
+<p>
+We extended the TDT to test for RV associations using four commonly
+used methods. We demonstrate that for all RV-TDT methods, using proper
+analysis strategies, type I error is well-controlled even when there
+are high levels of population substructure or admixture. For trio
+data, unlike for population-based data, RV allele-counting association
+methods will lead to inflated type I errors. However type I errors can
+be properly controlled by obtaining p values empirically through
+haplotype permutation. The methods that RV-TDT provides include:
+</p>
+<ul class="org-ul">
+<li>RV-TDT-CMC-Analytical: extension of Combined Multivariate and
+Collapsing (CMC, Li and Leal 2008), analytical p value is
+evaluated;
+</li>
+<li>RV-TDT-CMC-Haplotype: extension of CMC, haplotype permutation is used to evaluate
+statistical significance;
+</li>
+<li>RV-TDT-BRV-Haplotype: extension of Burden of Rare Variants (BRV,
+Auer et al 2013), with haplotype permutation;
+</li>
+<li>RV-TDT-VT-BRV-Haplotype: extension of Variable Threshold (VT, Price
+et al 2010) with BRV coding and haplotype permutation;
+</li>
+<li>RV-TDT-VT-CMC-Haplotype: extension of VT with CMC coding and haplotype permutation;
+</li>
+<li>RV-TDT-WSS-Haplotype: extension of Weighted Sum Statistic (WSS, Madsen 2009).
+</li>
+</ul>
+
+<p>
+For more information about RV-TDT, please refer to:
+</p>
+<pre class="example">
+He, Z., O’Roak, B. J., Smith, J. D., Wang, G., Hooker, S., Santos-Cortez, R. L. P.,  ... 
+&amp; Leal, S. M. (2014). Rare-variant extensions of the transmission disequilibrium test: 
+application to autism exome sequence data.  
+The American Journal of Human Genetics, 94(1), 33-46.
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Installation</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+RV-TDT can be installed and run on Linux and Mac OS. Download the
+source code from <a href="http://bioinformatics.org/rv-tdt/rv-tdt.tar.gz">here</a> and run the
+following shell commands: 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">make rvTDT
+</pre>
+</div>
+
+<p>
+An executable file <i>rvTDT</i> will be compiled in the current folder.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Input Format</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The RV-TDT requires three input files: a tped file, a map file, and a
+phenotype information file.
+</p>
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> tped file</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+The tped file provides the genotype information. Each line
+presents the genotypes for a variants.
+</p>
+
+<pre class="example">
+1042809 0 1 1 0 0 1 0 1 0 0 0 0 1 0 0 1 1 0 1 1 1 0 1 1 0 1 ...
+</pre>
+
+<p>
+The first column is SNP/variant id, and followed by the genotype on
+every individual. Since RV-TDT only takes phased data, every two
+columns present the haplotypes of one individual, that is, every six
+columns present one trio. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> map file</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+This file provides the gene-variant map information. The first two columns
+are the gene and variant id. The variant id must matches with the
+variant id in tped file.
+</p>
+
+<pre class="example">
+ZAN 100331837 0.013496
+ZAN 100334516 0.033025
+ZAN 100346012 0.000452
+</pre>
+
+<p>
+The third column is used for filtering, and this information can be
+used to determine whether the variant should be included in the 
+analysis. For example, in above example, this column contain
+population minor allele frequencies (MAF) from public available database,
+and later we can use <i>-u 0.05</i> option to exclude variants with MAF \(> 0.05\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> phenotype file</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+The phenotype contains six columns in total: sample ID, family ID,
+father ID, mother ID, sex (1 for male, 0 for female), case(1) /
+control(0). 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">5252    11006   0   0   0   0
+5284    11006   0   0   1   0
+5316    11006   5284    5252    0   1
+5253    11009   0   0   0   0
+5285    11009   0   0   1   0
+5317    11009   5285    5253    0   1
+</pre>
+</div>
+
+
+<p>
+The order of the sample ID must match the order of individuals in tped
+file. 
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Output Format</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The output includes two folder
+</p>
+<ul class="org-ul">
+<li>${proj}_pval: contains a .pval file for each gene in your dataset,
+which lists the p-values for the all RV-TDT tests.
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #b22222;">#</span><span style="color: #b22222;">gene   CMC-Analytical  BRV-Haplo   CMC-Haplo   VT-BRV-Haplo    VT-CMC-Haplo    WSS-Haplo   </span>
+ABCA7   0.006688    0.166417    0.006997    0.024988    0.000500    0.028986
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>${proj}_rvTDT: contains a .rvTDT file for each gene in your dataset,
+which lists the detailed information about the gene, such as
+transmission counts for each variants, WSS weights etc. This file
+is in the json format.
+</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">{
+    <span style="color: #8b2252;">"basicInformation"</span> : 
+    {
+        <span style="color: #8b2252;">"variants"</span> : []
+    },
+    <span style="color: #8b2252;">"tdtStatic"</span> : 
+    {
+        <span style="color: #8b2252;">"Transmitted"</span> : [],
+        <span style="color: #8b2252;">"denovoCount"</span> : [],
+        <span style="color: #8b2252;">"effectiveTrioNum"</span> : [],
+        <span style="color: #8b2252;">"singleSitePval"</span> : [],
+        <span style="color: #8b2252;">"siteBeAnalyzed"</span> : [],
+        <span style="color: #8b2252;">"unTransmitted"</span> : [],
+        <span style="color: #8b2252;">"wssWeight"</span> : []
+    },
+    <span style="color: #8b2252;">"tdtTest"</span> : 
+    {
+        <span style="color: #8b2252;">"pvalues"</span> : {},
+        <span style="color: #8b2252;">"tests"</span> : []
+    },
+    <span style="color: #8b2252;">"variantStatic"</span> : 
+    {
+        <span style="color: #8b2252;">"missingRatio"</span> : [],
+        <span style="color: #8b2252;">"populationMafs"</span> : [],
+        <span style="color: #8b2252;">"sampleMafs"</span> : [],
+        <span style="color: #8b2252;">"varFoundInKid"</span> : [],
+        <span style="color: #8b2252;">"varFoundInParent"</span> : []
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Example</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+In this example, the genotype and phenotype data for 20 genes and
+2,000 trios are randomly generated. The tped and map files are located
+in <i>rvtdt_exercise_data</i> folder, and you can find the phenotype file
+<i>rvtdt_exercise.phen</i> in current folder. Use the following script to run the RV-TDT analysis
+for all these genes (see the script in <i>rv_tdt_cmds.sh</i>, and run it by
+typing <i>sh rv_tdt_cmds.sh</i> in terminal).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #a020f0;">for</span> g<span style="color: #a020f0;"> in</span> <span style="color: #ff00ff;">`ls rvtdt_exercise_data | grep tped | cut -d"." -f1`</span>
+<span style="color: #a020f0;">do</span>
+<span style="color: #483d8b;">echo</span> <span style="color: #8b2252;">"runing rvTDT on gene "</span>${<span style="color: #a0522d;">g</span>} 
+./rvTDT exercise_proj -G ./rvtdt_exercise_data/${<span style="color: #a0522d;">g</span>}.tped -P ./rvtdt_exercise.phen <span style="color: #8b2252;">\</span>
+-M ./rvtdt_exercise_data/${<span style="color: #a0522d;">g</span>}.map <span style="color: #8b2252;">\</span>
+--adapt 500 --alpha 0.00001 --permut 2000 <span style="color: #8b2252;">\</span>
+--lower_cutoff 0 --upper_cutoff 100 <span style="color: #8b2252;">\</span>
+--minVariants 3 <span style="color: #8b2252;">\</span>
+--maxMissRatio 1
+<span style="color: #a020f0;">done</span>
+</pre>
+</div>
+
+<p>
+For demonstration purposes most arguments are written out including
+some that use default values:
+</p>
+<ul class="org-ul">
+<li><i>-G</i>: tped file location;
+</li>
+<li><i>-P</i>: phenotype file location;
+</li>
+<li><i>-M</i>: map file location;
+</li>
+<li><i>&#x2013;adapt</i>: To reduce
+computational time, adaptive permutation is used in <i>rvTDT</i>. Every
+<i>$adapt</i> permutations (default: 500 permutations), the program will check if we should
+keep doing permutation (which means this gene looks promising to
+reach the desired \(\alpha\) level), or we should give up on this gene (which
+means this gene will not reach the desired \(\alpha\) level based on
+the permutations we have done so far, or we have done enough permutations);
+</li>
+<li><i>&#x2013;alpha</i>: The \(\alpha\) level in adaptive permutation;
+</li>
+<li><i>&#x2013;permut</i>: The maximum number of permutations;
+</li>
+<li><i>&#x2013;lower_cutoff</i> and <i>&#x2013;upper_cutoff</i>: The cutoffs to determine
+which variants we should include in the analysis. In this example,
+the third column of map file is the number of minor allele counts,
+and here we only include the variants who have minor allele counts
+less than 100;
+</li>
+<li><i>&#x2013;minVariants</i>: The minimum number of variant sites for a
+gene. Genes with variant site number less than <i>$minVariants</i> will be excluded
+from analysis (after check missing);
+</li>
+<li><i>&#x2013;maxMissRation</i>: The max missing ratio allowed for a variant. The
+variants with missing ratio greater than <i>$maxMissRatio</i> will be
+excluded from analysis. In this example, we generated the genetic data
+file without any missing genotypes, so <i>&#x2013;maxMissRation 1</i> is used here.
+</li>
+</ul>
+
+<p>
+It takes about 2 minutes to finish above commands. The pvalues for
+these genes are as follows:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #b22222;">#</span><span style="color: #b22222;">gene   CMC-Analytical  BRV-Haplo   CMC-Haplo   VT-BRV-Haplo    VT-CMC-Haplo    WSS-Haplo   </span>
+gene20  0.041632    0.053892    0.061876    0.071856    0.055888    0.053892    
+gene9   0.051235    0.065868    0.063872    0.061876    0.077844    0.091816    
+gene17  0.176580    0.187625    0.185629    0.381238    0.381238    0.255489    
+gene5   0.369441    0.349301    0.343313    0.489022    0.475050    0.377246    
+gene16  0.500000    0.504990    0.528942    0.508982    0.536926    0.530938    
+gene14  0.841345    0.756487    0.744511    0.750499    0.770459    0.778443    
+gene1   0.948765    0.948104    0.944112    0.968064    0.968064    0.966068    
+gene13  0.958368    0.944112    0.960080    0.948104    0.948104    0.946108    
+gene19  0.987326    0.988024    0.990020    0.952096    0.956088    0.968064
+</pre>
+</div>
+
+<p>
+Please note the number of pvalue files in <i>exercise_proj_pval</i> is less
+than 20, because some genes have variant sites less than 3 and are
+not included in the analysis.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> rvTDT Command Options</h2>
+<div class="outline-text-2" id="text-6">
+<div class="org-src-container">
+
+<pre class="src src-sh">Usage: rvTdt projName 
+(-h to list usage, --help to list all arguments)
+
+All arguments:
+ projName (currently set to: rareTdtTest)   
+    Project name. (STRING) 
+    * set output folder name 
+
+-G/--genoFile &lt;string&gt; (currently set to: NoInputFile)  
+    Genotype file, with folder path. 
+    | Format (no header): SNP_ID 0 1 1 0 .... 
+    * missing site marked as -9 
+
+-M/--mapFile &lt;string&gt; (currently set to: NoInputFile)   
+    mapping file, with folder path. 
+    | Format (no header): Gene SNP_ID Annotation 
+
+-P/--phenoFile &lt;string&gt; (currently set to: NoInputFile) 
+    Phenotype file, with folder path. 
+    | Format (no header): Ind_ID Fam_ID Father_ID Mother_ID Sex Status ... 
+    * Fahter_ID or Mother_ID = 0, if not available 
+    * SEX = (male)?1:0 
+    * Status = (affected)?1:0 
+
+-a/--adapt &lt;int&gt; (currently set to: 500)    
+    Number of permutations for adaptive check 
+    * only applicable to permutation based methods
+
+-e/--minVariants &lt;int&gt; (currently set to: 4)    
+    The minimum variant sites for a gene to be analyzed 
+    * genes with variant site No. &lt; $<span style="color: #a0522d;">minVariants</span> will be excluede from analysis 
+      (after check missing)<span style="color: #483d8b;">.</span>
+
+-l/--lower_cutoff &lt;float&gt; (currently set to: 0) 
+    The lower bound of variants to be included<span style="color: #a020f0;"> in</span> analysis 
+    * Will compared with the third column of map file, only loci having annotated 
+      value &gt; $<span style="color: #a0522d;">lower_cutoff</span> will be analyzed 
+
+-m/--maxMissRatio &lt;float&gt; (currently set to: 1) 
+    The max missing ratio allowed on each site 
+    * A variant site will be excluded from analysis, if its missing ratio &gt; $<span style="color: #a0522d;">maxMissRatio</span> 
+
+<span style="color: #0000ff;">-n/--nopermut</span> (currently set to: 0) 
+    Only run CMC-analytical test
+
+-p/--permut &lt;int&gt; (currently set to: 200000)    
+    Number of permutations 
+    * only applicable to permutation based methods
+
+-s/--alpha &lt;float&gt; (currently set to: 1e-05)    
+    Alpha level for adaptive check. 
+
+-u/--upper_cutoff &lt;float&gt; (currently set to: 0.05)  
+    The upper bound of variants to be included<span style="color: #a020f0;"> in</span> analysis 
+    * Will compared with the third column of map file, only loci having annotated 
+      value &lt;= $<span style="color: #a0522d;">upper_cutoff</span> will be analyzed
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+
+       <div class="hrb">&nbsp;</div>
+     <footer>
+        <p>
+      I am also on
+      <a href="https://github.com/hezx">GitHub</a>,
+      <a href="https://facebook.com/hezongxiao">Facebook</a>
+      and
+      <a href="http://linkedin.com/in/hezongxiao">LinkedIn</a>.
+      </p>
+      <a class="logo" href="http://ustc.edu.cn/" title="USTC"><img src="http://hezx.github.io/media/images/ustc.jpg" width="40" alt="USTC" title="USTC" /></a>
+      <a class="logo" href="http://www.bcm.edu/" title="BCM"><img src="http://hezx.github.io/media/images/bcm.jpg" width="80" alt="BCM" title="BCM" /></a>
+      <a class="logo" href="http://www.rice.edu/" title="Rice"><img src="http://hezx.github.io/media/images/rice.jpg" width="80" alt="Rice" title="Rice" /></a>
+    </footer>
+</div>
+</body>
+</html>
