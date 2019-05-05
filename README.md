@@ -1,4 +1,4 @@
-#RV-TDT: Rare Variant Extensions of the Transmission Disequilibrium Test
+# RV-TDT: Rare Variant Extensions of the Transmission Disequilibrium Test
 ## Introduction
 
 Many population-based rare-variant (RV) association tests, which aggregate variants across a region, have been developed to analyze sequence data. A drawback of analyzing population-based data is that it is difficult to adequately control for population substructure and admixture, and spurious associations can occur. For RVs, this problem can be substantial, because the spectrum of rare variation can differ greatly between populations. A solution is to analyze parent-child trio data, by using the transmission disequilibrium test (TDT), which is robust to population substructure and admixture. 
